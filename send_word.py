@@ -7,7 +7,7 @@ CHAT_ID = os.getenv("CHAT_ID")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # Gemini API endpoint
-url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
+url = f"https://generativelanguage.googleapis.com/v1beta/models/Gemini-3.1-Pro:generateContent?key={GEMINI_API_KEY}"
 
 prompt = """
 Give one advanced English word for vocabulary improvement.
