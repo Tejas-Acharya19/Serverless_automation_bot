@@ -2,7 +2,7 @@ name: Daily Vocabulary Bot
 
 on:
   schedule:
-    - cron: "0 3 * * *"   # Runs daily (03:00 UTC)
+    - cron: "0 3 * * *"
   workflow_dispatch:
 
 jobs:
@@ -10,8 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Setup Python
         uses: actions/setup-python@v4
