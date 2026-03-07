@@ -1,12 +1,12 @@
 import requests
 import os
 
-TELEGRAM_TOKEN = "8649409134:AAFQjtyLLgjz1lRBW8LidlsYNh6E0nTmb_U"
-CHAT_ID = "2103549203"
-GEMINI_API_KEY = "AIzaSyCmos2f4i6N97lZ5cn81pASdWuTkVfuRK0"
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # Gemini endpoint
-url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
+url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
 
 prompt = """
 Give one advanced English vocabulary word.
