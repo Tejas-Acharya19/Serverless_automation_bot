@@ -1,21 +1,20 @@
 import requests
 import os
+import json
 
-# Environment variables from GitHub secrets
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-# Gemini API endpoint
-url = f"https://generativelanguage.googleapis.com/v1beta/models/Gemini-3.1-Pro:generateContent?key={GEMINI_API_KEY}"
+url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
 
 prompt = """
-Give one advanced English word for vocabulary improvement.
+Give one advanced English vocabulary word.
 Provide:
-1. Word
-2. Meaning
-3. 5 example sentences using the word.
-Format nicely.
+Word:
+Meaning:
+5 sentences using the word.
+Keep it concise.
 """
 
 payload = {
@@ -28,12 +27,22 @@ payload = {
     ]
 }
 
-response = requests.post(url, json=payload)
+headers = {
+    "Content-Type": "application/json"
+}
+
+response = requests.post(url, headers=headers, json=payload)
+
 data = response.json()
 
-text = data["candidates"][0]["content"]["parts"][0]["text"]
+# Debug print (helps if API fails)
+print(json.dumps(data, indent=2))
 
-# Send to Telegram
+try:
+    text = data["candidates"][0]["content"]["parts"][0]["text"]
+except KeyError:
+    text = "Error generating word. Check Gemini API response."
+
 telegram_url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
 
 msg = {
